@@ -8,6 +8,7 @@ import { FiSearch } from "react-icons/fi";
 import toast from 'react-hot-toast';
 import logo from "../../public/brand.jpg";
 import { Link, useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../utils/utils.js';
 
 function Purchase() {
   const [purchase, setPurchase] = useState([]);
@@ -29,7 +30,7 @@ function Purchase() {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:4001/api/v1/user/logout");
+      const response = await axios.get(`${BACKEND_URL}/user/logout`);
       toast.success(response.data.message);
       localStorage.removeItem("user");
       setIsLoggedIn(false);

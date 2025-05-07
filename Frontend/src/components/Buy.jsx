@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
+import { BACKEND_URL } from '../utils/utils.js'
 
 function Buy() {
     const [course, setCourse] = useState({})
@@ -27,7 +28,7 @@ function Buy() {
             }
             try {
                 setLoading(true)
-                const response = await axios.post(`http://127.0.0.1:4001/api/v1/course/buy/${courseId}`, {},
+                const response = await axios.post(`${BACKEND_URL}/course/buy/${courseId}`, {},
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -101,7 +102,7 @@ function Buy() {
             console.log("Payment Info:", paymentInfo)
 
             try {
-                await axios.post("http://127.0.0.1:4001/api/v1/order", paymentInfo, {
+                await axios.post(`${BACKEND_URL}/v1/order`, paymentInfo, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     },

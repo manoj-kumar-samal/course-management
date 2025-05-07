@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { BACKEND_URL } from '../utils/utils';
 
 function OurCourses() {
   const [courses, setCourses] = useState([]);
@@ -13,7 +14,7 @@ function OurCourses() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:4001/api/v1/course/courses");
+        const response = await axios.get(`${BACKEND_URL}/course/courses`);
         setCourses(response.data.courses);
       } catch (error) {
         toast.error("Failed to fetch courses");
@@ -26,7 +27,7 @@ function OurCourses() {
 
   const handleDeleteCourse = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:4001/api/v1/course/delete/${id}`, {
+      const response = await axios.delete(`${BACKEND_URL}/course/delete/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });

@@ -10,6 +10,7 @@ import { IoLogIn, IoLogOut } from "react-icons/io5";
 import { FiSearch } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { BACKEND_URL } from '../utils/utils.js';
 
 function Courses() {
     const [courses, setCourses] = useState([]);
@@ -26,7 +27,7 @@ function Courses() {
 
     const handleLogout = async () => {
         try {
-            const response = await axios.get("http://127.0.0.1:4001/api/v1/user/logout");
+            const response = await axios.get(`${BACKEND_URL}/user/logout`);
             toast.success(response.data.message);
             setIsLoggedIn(false);
             localStorage.removeItem("user");
@@ -40,7 +41,7 @@ function Courses() {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response = await axios.get("http://127.0.0.1:4001/api/v1/course/courses");
+                const response = await axios.get(`${BACKEND_URL}/course/courses`);
                 setCourses(response.data.courses);
                 setFilteredCourses(response.data.courses);  // Initialize filteredCourses with all courses
             } catch (error) {

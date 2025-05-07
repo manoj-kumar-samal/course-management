@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { BACKEND_URL } from '../utils/utils';
 
 function AdminLogin() {
   const[errorMsg,setErrorMsg]=useState()
@@ -17,7 +18,7 @@ function AdminLogin() {
     },
     onSubmit: async (value) => {
       try {
-        const response=await axios.post("http://127.0.0.1:4001/api/v1/admin/login", value)
+        const response=await axios.post(`${BACKEND_URL}/admin/login`, value)
         console.log(value)
         navigate("/admin/dashboard")
         toast.success("Login Successfull")

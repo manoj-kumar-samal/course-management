@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import OurCourses from './OurCourses'
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import { BACKEND_URL } from '../utils/utils';
 
 function AdminDashboard() {
   const stats = [
@@ -22,7 +23,7 @@ function AdminDashboard() {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:4001/api/v1/admin/logout");
+      const response = await axios.get(`${BACKEND_URL}/admin/logout`);
       toast.success(response.data.message);
       setIsLoggedIn(false);
       localStorage.removeItem("admin");
