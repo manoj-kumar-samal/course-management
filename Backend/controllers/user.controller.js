@@ -58,10 +58,10 @@ export const login = async (req, res) => {
         const token = jwt.sign(
             { id: user._id },
             config.JWT_USER_PASSWORD,
-            { expiresIn: "1h" }
+            { expiresIn: "1d" }
         );
         const cookieOptions={
-            expires: new Date(Date.now() + 60 * 60 * 1000),
+            expires: new Date(Date.now() + 60 * 60 * 1000 * 24),
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             samesite: "Strict"

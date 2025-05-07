@@ -150,8 +150,8 @@ export const courseDetails = async (req, res) => {
 
 import Stripe from "stripe";
 import config from "../config.js";
-const stripe = new Stripe(config.STRIPE_SCRET_KEY)
-console.log(config.STRIPE_SCRET_KEY);
+const stripe = new Stripe(config.STRIPE_SECRET_KEY)
+console.log(config.STRIPE_SECRET_KEY);
 
 export const buyCourse = async (req, res) => {
 
