@@ -8,6 +8,7 @@ import courseRoute from "./routes/course.route.js"
 import userRoute from "./routes/user.route.js"
 import adminRoute from "./routes/admin.route.js"
 import orderRoute from "./routes/order.route.js"
+import emailRoute from "./routes/email.route.js"
 
 import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
@@ -49,6 +50,7 @@ app.use("/api/v1/course",courseRoute)
 app.use("/api/v1/user",userRoute)
 app.use("/api/v1/admin",adminRoute)
 app.use("/api/v1/order", orderRoute)
+app.use("/api/v1/email",emailRoute)
 
 
 cloudinary.config({ 

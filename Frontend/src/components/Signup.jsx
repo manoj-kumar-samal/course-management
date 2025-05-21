@@ -20,7 +20,7 @@ function Signup() {
         },
         onSubmit: async (value) => {
             try {
-                await axios.post(`${BACKEND_URL}/user/signup`, value)
+                await axios.post(`http://127.0.0.1:4001/api/v1/user/signup`, value)
                 console.log(value)
                 toast.success("Signup Successfull")
                 navigate("/login")
