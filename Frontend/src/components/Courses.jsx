@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { FaCircleUser, FaDiscourse, FaDownload } from "react-icons/fa6";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaCircleUser, FaDiscourse, FaDownload, FaPerson } from "react-icons/fa6";
+import { FaBars, FaTimes, FaUser } from "react-icons/fa";
 import { RiHome2Fill } from "react-icons/ri";
 import { IoMdSettings } from "react-icons/io";
 import { IoLogOut, IoLogIn } from "react-icons/io5";
@@ -18,6 +18,7 @@ function Courses() {
     const [loading, setLoading] = useState(true);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const navigate = useNavigate();
+    const[cId,setCid]=useState("")
 
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     const token = user?.token;
@@ -61,6 +62,10 @@ function Courses() {
         setFilteredCourses(filtered);
     }, [searchQuery, courses]);
 
+    // function navReviewClick(){
+    //     navigate(`/reviews/${course}`)
+    // }
+
     return (
         <div className="flex flex-col md:flex-row min-h-screen h-screen overflow-hidden bg-gradient-to-r from-teal-500 via-blue-600 to-indigo-700">
             {/* Sidebar */}
@@ -90,6 +95,11 @@ function Courses() {
                             </Link>
                         </li>
                         <li>
+                            <Link onClick={() => setSidebarOpen(false)} to="/profile" className="flex items-center text-white hover:text-yellow-400">
+                                <FaUser className="mr-2" /> Profile
+                            </Link>
+                        </li>
+                        <li>
                             <span className="flex items-center text-blue-300">
                                 <FaDiscourse className="mr-2" /> Courses
                             </span>
@@ -99,11 +109,7 @@ function Courses() {
                                 <FaDownload className="mr-2" /> Purchases
                             </Link>
                         </li>
-                        <li>
-                            <span className="flex items-center text-white hover:text-yellow-400">
-                                <IoMdSettings className="mr-2" /> Settings
-                            </span>
-                        </li>
+                        
                         <li>
                             {isLoggedIn ? (
                                 <button onClick={handleLogout} className="flex items-center text-white hover:text-yellow-400">
@@ -165,7 +171,8 @@ function Courses() {
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
                             {filteredCourses.map(course => (
-                                <div
+                                <Link
+                                to={`/review/course/${course._id}`}
                                     key={course._id}
                                     className="bg-white border border-gray-300 p-4 rounded-lg shadow-md hover:scale-[1.03] transition-transform flex flex-col"
                                     style={{ minHeight: '420px' }}
@@ -194,7 +201,7 @@ function Courses() {
                                             </Link>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     )}

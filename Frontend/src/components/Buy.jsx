@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 import { BACKEND_URL } from '../utils/utils.js'
+import Reviews from './Reviews.jsx'
 
 function Buy() {
     const [course, setCourse] = useState({})
@@ -99,8 +100,6 @@ function Buy() {
                 status: paymentIntent.status,
             }
 
-            console.log("Payment Info:", paymentInfo)
-
             try {
                 await axios.post(`http://127.0.0.1:4001/api/v1/order`, paymentInfo, {
                     headers: {
@@ -151,8 +150,7 @@ function Buy() {
                     <button
                         type="submit"
                         disabled={!stripe || loading}
-                        className={`w-full py-3 px-5 text-lg font-medium text-white rounded-md transition ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-                            }`}
+                        className={`w-full py-3 px-5 text-lg font-medium text-white rounded-md transition ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"}`}
                     >
                         {loading ? "Processing..." : "Buy Now"}
                     </button>
@@ -161,6 +159,11 @@ function Buy() {
                 <p className="text-center text-sm text-gray-500">
                     Payments are securely processed via Stripe.
                 </p>
+
+                {/* Reviews Section */}
+                {/* <div className="mt-8">
+                    <Reviews courseId={courseId} />
+                </div> */}
             </div>
         </div>
     )

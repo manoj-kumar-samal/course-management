@@ -79,9 +79,6 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
     try {
-        // if(!req.cookies.jwt){
-        //     return res.status(401).json({errors: "Kindly login first"})
-        // }
         res.clearCookie("jwt");
         res.status(200).json({ message: "Logged out successfully" })
     } catch (error) {
@@ -90,23 +87,69 @@ export const logout = async (req, res) => {
     }
 }
 
-export const purchases= async (req,res)=>{
-    const userId=req.userId;
+export const purchases = async (req,res) => {
+    const userId = req.userId;
 
-    try{
-        const purchased= await Purchase.find({userId})
-        let purchasedCourseId=[]
-        for(let i=0;i<purchased.length;i++){
+    try {
+        const purchased = await Purchase.find({userId})
+        let purchasedCourseId = []
+        for(let i=0; i<purchased.length; i++) {
             purchasedCourseId.push(purchased[i].courseId)
         }
 
-        const courseData= await Course.find({
-            _id:{$in:purchasedCourseId}
+        const courseData = await Course.find({
+            _id: {$in: purchasedCourseId}
         })
 
         res.status(200).json({purchased, courseData})
-    }catch(error){
+    } catch(error) {
         console.log("Error in purchase", error)
         res.status(500).json({errors: "Error in purchases"})
     }
 }
+
+export const getProfile = async (req, res) => {
+    const userId = req.userId;
+
+    try {
+        const user = await User.findById(userId).select('-password');
+        if (!user) {
+            return res.status(404).json({ errors: "User not found" });
+        }
+        res.status(200).json({ profile: user });
+    } catch (error) {
+        console.error("Error fetching profile:", error);
+        res.status(500).json({ errors: "Error fetching profile" });
+    }
+};
+
+export const updateProfile = async (req, res) => {
+    const userId = req.userId;
+    const { firstName, lastName, phone, address, bio } = req.body;
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            {
+                firstName,
+                lastName,
+                phone,
+                address,
+                bio
+            },
+            { new: true }
+        ).select('-password');
+
+        if (!updatedUser) {
+            return res.status(404).json({ errors: "User not found" });
+        }
+
+        res.status(200).json({ 
+            message: "Profile updated successfully",
+            profile: updatedUser 
+        });
+    } catch (error) {
+        console.error("Error updating profile:", error);
+        res.status(500).json({ errors: "Error updating profile" });
+    }
+};

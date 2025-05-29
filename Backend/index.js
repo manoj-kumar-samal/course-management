@@ -9,20 +9,20 @@ import userRoute from "./routes/user.route.js"
 import adminRoute from "./routes/admin.route.js"
 import orderRoute from "./routes/order.route.js"
 import emailRoute from "./routes/email.route.js"
+import reviewRoute from "./routes/review.route.js"
 
 import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
 
-
-const app=express();
+const app = express();
 dotenv.config();
 
 app.use(express.json())
 app.use(cookieParser());
 
 app.use(fileUpload({
-    useTempFiles : true,
-    tempFileDir : '/tmp/'
+    useTempFiles: true,
+    tempFileDir: '/tmp/'
 }));
 
 app.use(cors({
@@ -34,33 +34,29 @@ app.use(cors({
     optionsSuccessStatus: 200,
 }))
 
+const port = process.env.PORT || 3000;
+const DB_URI = process.env.MONGO_URI;
 
-const port=process.env.PORT || 3000;
-const DB_URI=process.env.MONGO_URI;
-
-try{
+try {
     await mongoose.connect(DB_URI)
     console.log("Connected to MongoDB")
-}catch(error){
+} catch (error) {
     console.log(error)
 }
 
-
-app.use("/api/v1/course",courseRoute)
-app.use("/api/v1/user",userRoute)
-app.use("/api/v1/admin",adminRoute)
+app.use("/api/v1/course", courseRoute)
+app.use("/api/v1/user", userRoute)
+app.use("/api/v1/admin", adminRoute)
 app.use("/api/v1/order", orderRoute)
-app.use("/api/v1/email",emailRoute)
+app.use("/api/v1/email", emailRoute)
+app.use("/api/v1/review", reviewRoute)
 
-
-cloudinary.config({ 
-    cloud_name: process.env.cloud_name, 
-    api_key: process.env.api_key, 
-    api_secret: process.env.api_secret // Click 'View API Keys' above to copy your API secret
+cloudinary.config({
+    cloud_name: process.env.cloud_name,
+    api_key: process.env.api_key,
+    api_secret: process.env.api_secret
 });
 
-
-
-app.listen(port,()=>{
+app.listen(port, () => {
     console.log(`Server started http://127.0.0.1:${port}`);
 })

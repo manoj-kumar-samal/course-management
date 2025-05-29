@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FaCircleUser, FaDiscourse, FaDownload } from "react-icons/fa6";
-import { FaBars, FaTimes } from "react-icons/fa"; // Fixed imports for toggle icons
+import { FaBars, FaTimes, FaUser } from "react-icons/fa"; // Fixed imports for toggle icons
 import { RiHome2Fill } from "react-icons/ri";
 import { IoMdSettings } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
@@ -131,6 +131,11 @@ function Purchase() {
               </Link>
             </li>
             <li>
+              <Link onClick={() => setSidebarOpen(false)} to="/profile" className="flex items-center text-white hover:text-yellow-400">
+                <FaUser className="mr-2" /> Profile
+              </Link>
+            </li>
+            <li>
               <Link onClick={() => setSidebarOpen(false)} to="/courses" className="flex items-center text-white hover:text-yellow-400">
                 <FaDiscourse className="mr-2" /> Courses
               </Link>
@@ -140,13 +145,9 @@ function Purchase() {
                 <FaDownload className="mr-2" /> Purchases
               </span>
             </li>
+            
             <li>
-              <span className="flex items-center text-white hover:text-yellow-400">
-                <IoMdSettings className="mr-2" /> Settings
-              </span>
-            </li>
-            <li>
-              <button onClick={handleLogout} className="flex items-center text-white hover:text-yellow-400">
+              <button onClick={handleLogout} className="flex items-center cursor-pointer text-white hover:text-yellow-400">
                 <IoLogOut className="mr-2" /> Logout
               </button>
             </li>
@@ -216,7 +217,7 @@ function Purchase() {
                   </div>
                   <div>
                     <h2 className="text-lg font-semibold text-center mt-4">{course.title}</h2>
-                    <p className="text-sm text-center text-gray-600 mt-2">
+                    <p className="text-sm text-center text-gray-600 mt-2 h-10">
                       {course.description?.slice(0, 100)}...
                     </p>
                     <div className="flex justify-center mt-4">
