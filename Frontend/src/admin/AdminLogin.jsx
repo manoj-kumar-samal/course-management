@@ -4,7 +4,8 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { BACKEND_URL } from '../utils/utils';
+import { BACKEND_URL } from '../../utils/utils';
+
 
 function AdminLogin() {
   const[errorMsg,setErrorMsg]=useState()
@@ -20,9 +21,9 @@ function AdminLogin() {
       try {
         const response=await axios.post(`${BACKEND_URL}/admin/login`, value)
         console.log(value)
-        navigate("/admin/dashboard")
         toast.success("Login Successfull")
         localStorage.setItem("admin", JSON.stringify(response.data));
+        navigate("/admin/dashboard")
       } catch (error) {
         if (error.response) {
           setErrorMsg(error.response.data.errors);

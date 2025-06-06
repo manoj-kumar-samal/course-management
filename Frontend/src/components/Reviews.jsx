@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FaStar } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import { useParams, useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../../utils/utils';
 
 function CourseDetailsWithReviews() {
   const { courseId } = useParams();
@@ -23,7 +24,7 @@ function CourseDetailsWithReviews() {
 
   const fetchCourse = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:4001/api/v1/course/${courseId}`);
+      const res = await axios.get(`${BACKEND_URL}/course/${courseId}`);
       setCourse(res.data.course);
     } catch {
       toast.error('Failed to load course details');
@@ -32,7 +33,7 @@ function CourseDetailsWithReviews() {
 
   const fetchReviews = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:4001/api/v1/review/course/${courseId}`);
+      const res = await axios.get(`${BACKEND_URL}/review/course/${courseId}`);
       setReviews(res.data.reviews);
       setStats(res.data.stats);
     } catch {
@@ -51,7 +52,7 @@ function CourseDetailsWithReviews() {
 
     try {
       await axios.post(
-        `http://127.0.0.1:4001/api/v1/review/create/${courseId}`,
+        `${BACKEND_URL}/review/create/${courseId}`,
         newReview,
         { headers: { Authorization: `Bearer ${token}` } }
       );

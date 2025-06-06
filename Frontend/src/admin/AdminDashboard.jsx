@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import OurCourses from './OurCourses'
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { BACKEND_URL } from '../utils/utils';
+import { BACKEND_URL } from '../../utils/utils';
+
 
 function AdminDashboard() {
   const stats = [
@@ -27,7 +28,7 @@ function AdminDashboard() {
       toast.success(response.data.message);
       setIsLoggedIn(false);
       localStorage.removeItem("admin");
-      navigate("/admin/login");
+      navigate("/");
     } catch (error) {
       console.log("Error in logging out", error);
       toast.error("Error in logging out");

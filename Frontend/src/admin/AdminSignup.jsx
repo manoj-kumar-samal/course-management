@@ -4,7 +4,8 @@ import {useFormik} from "formik";
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { BACKEND_URL } from '../utils/utils';
+import { BACKEND_URL } from '../../utils/utils';
+
 
 function AdminSignup() {
   const[errorMsg,setErrorMsg]=useState("")

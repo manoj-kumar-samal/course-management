@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { BACKEND_URL } from '../utils/utils';
+
 import toast from 'react-hot-toast';
 import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { BACKEND_URL } from '../../utils/utils';
 
 function UserProfile() {
   const [profile, setProfile] = useState({
@@ -32,7 +33,7 @@ function UserProfile() {
 
   const fetchProfile = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:4001/api/v1/user/profile`, {
+      const response = await axios.get(`${BACKEND_URL}/user/profile`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setProfile(response.data.profile);
@@ -55,7 +56,7 @@ function UserProfile() {
     e.preventDefault();
     try {
       await axios.put(
-        `http://127.0.0.1:4001/api/v1/user/profile`,
+        `${BACKEND_URL}/user/profile`,
         profile,
         {
           headers: { Authorization: `Bearer ${token}` }
@@ -84,8 +85,8 @@ function UserProfile() {
             <h2 className="text-3xl font-bold text-gray-900">My Profile</h2>
             <div className="flex gap-4">
               <button
-                onClick={() => navigate(-1)}
-                className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition"
+                onClick={() => navigate("/purchase")}
+                className="px-4 py-2 bg-gray-300 text-gray-800 cursor-pointer rounded-md hover:bg-gray-400 transition"
               >
                 Back
               </button>

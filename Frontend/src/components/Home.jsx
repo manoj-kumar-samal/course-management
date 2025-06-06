@@ -7,6 +7,7 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import toast from 'react-hot-toast'
+import { BACKEND_URL } from '../../utils/utils'
 
 function Home() {
     const [courses, setCourses] = useState([])
@@ -22,7 +23,7 @@ function Home() {
 
     const handleLogout = async () => {
         try {
-            const response = await axios.get(`http://127.0.0.1:4001/api/v1/user/logout`)
+            const response = await axios.get(`${BACKEND_URL}/user/logout`)
             toast.success(response.data.message)
             setIsLoggedIn(false)
             localStorage.removeItem("user")
@@ -35,7 +36,7 @@ function Home() {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:4001/api/v1/course/courses`)
+                const response = await axios.get(`${BACKEND_URL}/course/courses`)
                 setCourses(response.data.courses)
             } catch (error) {
                 console.log("Error fetching courses", error)
@@ -61,7 +62,7 @@ function Home() {
         }
 
         try {
-            await axios.post("http://127.0.0.1:4001/api/v1/email/send-email", {
+            await axios.post(`${BACKEND_URL}/email/send-email`, {
                 name: formData.name,
                 email: formData.email,
                 phone: formData.phone,
@@ -115,13 +116,13 @@ function Home() {
                                     to="/login"
                                     className="bg-transparent border border-white hover:bg-white hover:text-indigo-700 transition px-5 py-2 rounded font-semibold w-40 text-center"
                                 >
-                                    Login
+                                    User
                                 </Link>
                                 <Link
-                                    to="/signup"
+                                    to="admin/login"
                                     className="bg-transparent border border-white hover:bg-white hover:text-indigo-700 transition px-5 py-2 rounded font-semibold w-40 text-center"
                                 >
-                                    Signup
+                                    Admin
                                 </Link>
                             </>
                         )}

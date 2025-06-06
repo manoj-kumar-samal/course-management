@@ -4,7 +4,8 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { BACKEND_URL } from '../utils/utils';
+import { BACKEND_URL } from '../../utils/utils';
+
 
 function Signup() {
     const [errorMsg, setErrorMsg] = useState("")
@@ -20,7 +21,7 @@ function Signup() {
         },
         onSubmit: async (value) => {
             try {
-                await axios.post(`http://127.0.0.1:4001/api/v1/user/signup`, value)
+                await axios.post(`${BACKEND_URL}/user/signup`, value)
                 console.log(value)
                 toast.success("Signup Successfull")
                 navigate("/login")

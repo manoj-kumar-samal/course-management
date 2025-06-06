@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { BACKEND_URL } from "../utils/utils";
+import { BACKEND_URL } from "../../utils/utils";
+
 function CourseCreate() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -66,7 +67,10 @@ function CourseCreate() {
     <div>
       <div className="min-h-screen  py-4">
         <div className="max-w-4xl mx-auto p-4 border  rounded-lg shadow-lg">
-          <h3 className="text-2xl font-semibold mb-8">Create Course</h3>
+          <div className="flex justify-between items-center mb-8">
+            <h3 className="text-2xl font-semibold">Create Course</h3>
+            <button onClick={()=>navigate("/admin/dashboard")} className="bg-orange-400 cursor-pointer text-white py-2 px-3 rounded-xl">Cancel</button>
+          </div>
 
           <form onSubmit={handleCreateCourse} className="space-y-6">
             <div className="space-y-2">

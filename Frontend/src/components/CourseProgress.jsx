@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { BACKEND_URL } from '../utils/utils';
+import { BACKEND_URL } from '../../utils/utils';
+
 
 function CourseProgress({ courseId }) {
   const [progress, setProgress] = useState(0);
