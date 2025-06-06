@@ -1,1 +1,1 @@
-export const BACKEND_URL="http://127.0.0.1:4001/api/v1"
+export const BACKEND_URL="https://course-management-5ima.onrender.com/api/v1"
